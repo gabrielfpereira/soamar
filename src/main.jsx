@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import {SoamarProvider} from './context/soamarContext'
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <SoamarProvider>
