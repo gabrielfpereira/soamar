@@ -1,0 +1,71 @@
+.contagem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.contagem .form{
+    border: 2px solid #1c1c1c;
+    padding: 1.5rem;
+    border-radius: .4rem;
+    margin: .4rem;
+    width: 100%;
+}
+
+.contagem .form button{
+    background-color: navy;
+    color: #FFF;
+    font-weight: bold;
+    padding: .3rem;
+    border: none;
+    width: 100%;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    outline: none;
+}
+
+.contagem .form select{
+    font-size: 1.3rem;
+    margin-left: .3rem;
+    border: none;
+    padding: .3rem;
+}
+
+.contagem .form input{
+    font-size: 1.3rem;
+    border: none;
+    border-bottom: 2px solid navy;
+    width: 50%;
+    outline: none;
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.contagem .container p{
+    background-color: navy;
+    color: #FFF;
+    padding: .5rem;
+    border-radius: .3rem;
+    font-size: 1.2rem;
+    margin: .2rem;
+}
+
+.contagem .container button{
+    font-size: .8rem;
+}
+
+.footer{
+    background-color: #1c1c1c;
+    color: #FFF;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    font-size: 1.2rem;
+}
