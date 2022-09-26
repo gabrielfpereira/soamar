@@ -8,13 +8,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT,
-  storageBucket: process.env.REACT_APP_STORAGE,
-  messagingSenderId: process.env.REACT_APP_MESSAGING,
-  appId: process.env.REACT_APP_APP_ID,
-  databaseURL: process.env.REACT_APP_URL_DB
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT,
+  storageBucket: import.meta.env.VITE_STORAGE,
+  messagingSenderId: import.meta.env.VITE_MESSAGING,
+  appId: import.meta.env.VITE_APP_ID,
+  databaseURL: import.meta.env.VITE_URL_DB
 };
 
 // Initialize Firebase

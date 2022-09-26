@@ -2,6 +2,9 @@ import React,{useContext, useEffect, useState} from 'react'
 import { SoamarContext } from '../context/soamarContext'
 import './Contagem.css'
 
+import { getDatabase, ref, set } from "firebase/database";
+import { database } from '../services/firebase';
+
 const Contagem = () => {
   const [soamarState, dispatch] = useContext(SoamarContext)
   const [ quantidade, setQuantidade] = useState(0)
@@ -14,6 +17,12 @@ const Contagem = () => {
     }})
 
     setQuantidade(0)
+
+    const db = getDatabase();
+    set(ref(db, 'contagem/'), {
+      turma: turmaSelected,
+      quantidade: quantidade,
+    });
   }
 
   const handleTotal = () => {
