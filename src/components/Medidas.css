@@ -1,0 +1,83 @@
+.notificacao{
+    height: 100vh;
+    width: 100%;
+    padding: .6rem;
+    width: 100%;
+}
+
+.form input{
+    padding: .3rem;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid navy;
+}
+
+.turmas{
+    padding: .4rem;
+    font-size: 1.2rem;
+    border: none;
+}
+
+.categoria{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+}
+
+.categoria_info{
+    margin: 0 15px;
+    font-size: 1.2rem;
+}
+
+.form button{
+    background-color: navy;
+    color: #FFF;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: .3rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.card{
+    background-color: beige;
+    border-radius: .3rem;
+    width: 100%;
+    padding: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: .6rem;
+}
+
+.card h3{
+    text-align: start;
+    margin-bottom: .3rem;
+}
+.card .infos{
+    display: flex;
+    align-items: center;
+}
+
+.card .infos span{
+    margin: .3rem;
+}
+
+.card .left{
+    flex: 1;
+    border-right: 1px solid gray;
+}
+
+.card .rigth{
+    display: flex;
+    flex-direction: column;
+    padding-left: .6rem;
+}
+
+.card .rigth button{
+    margin: .3rem 0;
+}
