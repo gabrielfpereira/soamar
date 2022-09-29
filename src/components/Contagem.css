@@ -48,13 +48,38 @@
     padding-bottom: 4rem;
 }
 
-.contagem .container p{
+.contagem .container .card-turma{
     background-color: navy;
     color: #FFF;
     padding: .5rem;
     border-radius: .3rem;
-    font-size: 1.2rem;
     margin: .2rem;
+    display: flex;
+    align-items: center;
+    width: 138px;
+}
+
+.card-turma .left{
+    width: 100%;
+}
+
+.card-turma .rigth{
+    padding: .3rem;
+}
+
+.card-header{
+    text-align: left;
+}
+.card-turma .card-header h4{
+ margin: 0;
+ font-size: 1.3rem;
+}
+
+.card-footer{
+    text-align: left;
+}
+.card-footer .infos{
+    margin-right: .5rem;
 }
 
 .contagem .container button{

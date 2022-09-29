@@ -54,9 +54,28 @@ const Contagem = () => {
 
       <div className="container">
         {soamarState.turmasContadas.map( (item,index) => (
-          <p key={index}>{item.turma} - {item.quantidade} - <button onClick={() => dispatch({type: 'DELETE_ITEM', data: {
-            turma: item.turma
-          }})}>X</button></p>
+          <div className="card-turma" key={index}>
+            <div className="left">
+              <div className="card-header">
+                <label htmlFor="">turma</label>
+                <h4>{item.turma}</h4>
+              </div>
+
+              <div className="card-footer">
+                <div className="infos">
+                  <span>qnt: <strong>{item.quantidade}</strong></span>
+                </div>
+
+                <span>autor: G</span>
+              </div>
+            </div>
+
+            <div className="rigth">
+              <button onClick={() => dispatch({type: 'DELETE_ITEM', data: {
+              turma: item.turma
+            }})}>X</button>
+            </div>
+          </div>
         ))}
       </div>
 
