@@ -19,12 +19,14 @@ const Contagem = () => {
 
     setQuantidade(0)
 
+    const date = new Date()
+    const uuid = uuidv4()
     const db = getDatabase();
-    set(ref(db, `contagem/${uuidv4()}`), {
-      id: uuidv4(),
+    set(ref(db, `contagem/${uuid}`), {
+      id: uuid,
       turma: turmaSelected,
       quantidade: quantidade,
-      createdAt: `${new Date().toISOString()}`
+      createdAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
     });
   }
 
