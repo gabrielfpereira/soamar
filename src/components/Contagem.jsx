@@ -3,7 +3,9 @@ import { SoamarContext } from '../context/soamarContext'
 import './Contagem.css'
 import { v4 as uuidv4} from 'uuid'
 
-import { getDatabase, ref, set, push, child } from "firebase/database";
+import { service } from '../services/contagem'
+
+import { getDatabase, ref, set, push, child, query, orderByChild } from "firebase/database";
 import { database, app } from '../services/firebase';
 
 const Contagem = () => {
@@ -36,6 +38,17 @@ const Contagem = () => {
 
     return result
   }
+
+  const handleGetAll = () => {
+    const db = getDatabase();
+    const result = query(ref(db,'contagem'), orderByChild('createdAt'))
+    console.log(result)
+  }
+
+  useEffect(() => {
+    handleGetAll()
+    console.log(service.getAll())
+  }, [])
 
   return (
     <div className='contagem'>

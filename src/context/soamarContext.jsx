@@ -23,6 +23,12 @@ const soamarReducer = (state, action) => {
              tela: TELAS[2]
             }
 
+        case 'HOME':
+            return {
+                ...state,
+                tela: TELAS[0]
+            }
+
         case 'INSERT':
             let newArray = [...state.turmasContadas]
             const result = newArray.findIndex( (item) => item.turma == action.data.turma)
