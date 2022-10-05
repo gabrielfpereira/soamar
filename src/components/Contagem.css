@@ -95,3 +95,12 @@
     font-size: 1.2rem;
     position: fixed;
 }
+
+.footer span{
+    margin: 0;
+    margin-bottom: 6px;
+}
+
+.footer p{
+    margin-bottom: 3px;
+}

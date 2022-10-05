@@ -3,51 +3,77 @@ import { SoamarContext } from '../context/soamarContext'
 import './Contagem.css'
 import { v4 as uuidv4} from 'uuid'
 
-import { service } from '../services/contagem'
-
-import { getDatabase, ref, set, push, child, query, orderByChild } from "firebase/database";
+import { getDatabase, ref, set, push, child, query, orderByChild, get, remove } from "firebase/database";
 import { database, app } from '../services/firebase';
+
+const db = getDatabase();
+const date = new Date()
+const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 
 const Contagem = () => {
   const [soamarState, dispatch] = useContext(SoamarContext)
   const [ quantidade, setQuantidade] = useState(0)
   const [turmaSelected, setTurmaSelected] = useState('1201')
 
+  const [contagem, setContagem] = useState([])
+
   const hadleSafoButton = () => {
-    dispatch({type: 'INSERT', data: {
-      quantidade: quantidade,
-      turma: turmaSelected
-    }})
+    const result = contagem.find((item, index) => item.turma == turmaSelected)
+    let uuid = uuidv4()
 
-    setQuantidade(0)
-
-    const date = new Date()
-    const uuid = uuidv4()
-    const db = getDatabase();
-    set(ref(db, `contagem/${uuid}`), {
+    if(result){
+      uuid = result.id
+    }
+    
+    
+    set(ref(db, `contagem/${dateString}/${uuid}`), {
       id: uuid,
       turma: turmaSelected,
       quantidade: quantidade,
       createdAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
     });
+    
+    setQuantidade(0)
+    handleLoad()
   }
 
   const handleTotal = () => {
     let result = 0
-    soamarState.turmasContadas.map( item => result += parseInt(item.quantidade))
+    contagem.map( item => result += parseInt(item.quantidade))
 
     return result
   }
 
-  const handleGetAll = () => {
-    const db = getDatabase();
-    const result = query(ref(db,'contagem'), orderByChild('createdAt'))
-    console.log(result)
+  const handleDelete = (item) => {
+    remove(ref(db, `contagem/${item.createdAt}/${item.id}`))
+    handleLoad()
+  }
+
+  const handleLoad = () => {
+    get(child(ref(db), `contagem/${dateString}`)).then((snapshot) => {
+      const array = []
+      if (snapshot.exists()) {
+        const data = snapshot.val()
+
+        if( data != null) {
+              Object.values(data).map( (item) => {
+                  array.push(item)
+              })
+          }
+        } else {
+          console.log("No data available");
+        }
+
+        setContagem(array)
+      }).catch((error) => {
+        console.error(error);
+    });
   }
 
   useEffect(() => {
-    handleGetAll()
-    console.log(service.getAll())
+    handleLoad()
+    handleTotal()
+    console.log(contagem)
   }, [])
 
   return (
@@ -66,7 +92,7 @@ const Contagem = () => {
       </div>
 
       <div className="container">
-        {soamarState.turmasContadas.map( (item,index) => (
+        { contagem.map( (item,index) => (
           <div className="card-turma" key={index}>
             <div className="left">
               <div className="card-header">
@@ -84,9 +110,7 @@ const Contagem = () => {
             </div>
 
             <div className="rigth">
-              <button onClick={() => dispatch({type: 'DELETE_ITEM', data: {
-              turma: item.turma
-            }})}>X</button>
+              <button onClick={() => handleDelete(item)}>X</button>
             </div>
           </div>
         ))}
@@ -94,6 +118,7 @@ const Contagem = () => {
 
       <div className="footer">
         <p>Total: { handleTotal()}</p>
+        <span>{ contagem.length } - turmas</span>
       </div>
     </div>
   )
