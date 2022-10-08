@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.container{
+    width: 100%;
+}
+
 .btn-back{
     position: absolute;
     top: 16px;
@@ -53,6 +57,7 @@
     background-color: whitesmoke;
     border-radius: .3rem;
     width: 100%;
+    margin: 0 2rem;
     padding: .6rem;
     display: flex;
     justify-content: center;

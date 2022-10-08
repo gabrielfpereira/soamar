@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import './ModalNotyfi.css'
 import turmas from '../data/turmas'
 
-import { getDatabase, ref, set } from "firebase/database";
-// import { database, app } from '../services/firebase';
+import { collection, addDoc, getDocs, doc, setDoc, deleteDoc, query, where  } from "firebase/firestore";
+import { db, app } from '../services/firebase';
 
-// const db = getDatabase()
-const now = new Date()
+const date = new Date()
+const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 
 const ModalNotyfi = ({toggleModal, notyfi, handleLoad}) => {
     const [name, setName] = useState(notyfi.name)
@@ -15,21 +15,20 @@ const ModalNotyfi = ({toggleModal, notyfi, handleLoad}) => {
     const [classScool, setClassScool] = useState(notyfi.class)
     
     const createdAt = notyfi.createdAt
-    const id = notyfi.id
+    const uid = notyfi.uid
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const student = {
-            id,
             name,
             category,
             status,
             class: classScool,
             createdAt,
-            updatedAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`
+            updatedAt: `${dateString}`
         }
-        console.log(student)
 
-        // set(ref(db, `notifications/${notyfi.id}`), student)
+        await setDoc(doc(db, "notifications", uid), student);
+
         toggleModal()
         handleLoad()
     }

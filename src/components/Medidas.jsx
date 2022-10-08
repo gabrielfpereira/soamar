@@ -3,12 +3,13 @@ import './Medidas.css'
 import turmas from  '../data/turmas'
 import ModalNotyfi from './ModalNotyfi'
 
-// import { database, app } from "../services/firebase";
-import { getDatabase, ref, set, push, child, query, orderByChild, onValue, remove, update, get } from "firebase/database";
-import { v4 as uuidv4} from 'uuid'
+import { collection, addDoc, getDocs, doc, setDoc, deleteDoc, query, where  } from "firebase/firestore";
+import { db, app } from '../services/firebase';
+import Loading from './Loading';
 
-// const db = getDatabase()
-const now = new Date()
+const date = new Date()
+const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+
 
 const Medidas = ({handleHomeScreen}) => {
   const [notifications, setNotifications] = useState([])
@@ -31,8 +32,7 @@ const Medidas = ({handleHomeScreen}) => {
     console.log(classScool)
   }
 
-  const handleSaveNotification = () => {
-    const uuid = uuidv4()
+  const handleSaveNotification = async () => {
     // set(ref(db, `notifications/${uuid}`), {
     //     name: name,
     //     class: classScool,
@@ -42,6 +42,15 @@ const Medidas = ({handleHomeScreen}) => {
     //     createdAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
     //     updatedAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
     // })
+
+    const docRef = await addDoc(collection(db, 'notifications'),{
+      name: name,
+      class: classScool,
+      category: category,
+      status: 'pending',
+      createdAt: `${dateString}`,
+      updatedAt: `${dateString}`
+    })
 
     clearStates()
     handleLoad()
@@ -54,9 +63,10 @@ const Medidas = ({handleHomeScreen}) => {
   }
 
   
-  const handleDelete = (notify) => {
+  const handleDelete = async (notify) => {
     console.log(notify)
-    // remove(ref(db, `notifications/${notify.id}`))
+    await deleteDoc(doc(db, "notifications", notify.uid));
+
     handleLoad()
   }
 
@@ -69,25 +79,23 @@ const Medidas = ({handleHomeScreen}) => {
     setModalHidden(!modalHidden)
   }
 
-  const handleLoad = () => {
-    // get(child(ref(db), 'notifications')).then((snapshot) => {
-    //   const array = []
-    //   if (snapshot.exists()) {
-    //     const data = snapshot.val()
+  const handleLoad = async () => {
+   
+    const querySnapshot = await getDocs(collection(db, 'notifications'));
+    const array = []
+    querySnapshot.forEach((doc) => {
+      try {
+        array.push({
+          uid: doc.id,
+          ...doc.data()
+        })
+        
+      } catch (error) {
+        console.log(error)
+      }
+    });
 
-    //     if( data != null) {
-    //           Object.values(data).map( (item) => {
-    //               array.push(item)
-    //           })
-    //       }
-    //     } else {
-    //       console.log("No data available");
-    //     }
-
-    //     setNotifications(array)
-    //   }).catch((error) => {
-    //     console.error(error);
-    // });
+    setNotifications(array)
   }
 
   useEffect(() => {
