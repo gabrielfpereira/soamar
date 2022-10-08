@@ -44,8 +44,9 @@
 .container{
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 100vw;
     padding-bottom: 4rem;
+    justify-content: center;
 }
 
 .contagem .container .card-turma{
@@ -82,8 +83,29 @@
     margin-right: .5rem;
 }
 
-.contagem .container button{
+/* .contagem .container button{
     font-size: .8rem;
+} */
+
+.list_days{
+    margin: 10px;
+    display: flex;
+    max-width: 100%;
+    overflow: scroll;
+    padding: .4rem 0;
+}
+
+.contagem .container .list_days button.btn_days{
+    background-color: cadetblue;
+    color: #FFF;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0 5px;
+    min-width: 120px;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    border-radius: .8rem;
 }
 
 .footer{

@@ -3,9 +3,9 @@ import './ModalNotyfi.css'
 import turmas from '../data/turmas'
 
 import { getDatabase, ref, set } from "firebase/database";
-import { database, app } from '../services/firebase';
+// import { database, app } from '../services/firebase';
 
-const db = getDatabase()
+// const db = getDatabase()
 const now = new Date()
 
 const ModalNotyfi = ({toggleModal, notyfi, handleLoad}) => {
@@ -29,7 +29,7 @@ const ModalNotyfi = ({toggleModal, notyfi, handleLoad}) => {
         }
         console.log(student)
 
-        set(ref(db, `notifications/${notyfi.id}`), student)
+        // set(ref(db, `notifications/${notyfi.id}`), student)
         toggleModal()
         handleLoad()
     }

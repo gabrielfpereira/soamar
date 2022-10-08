@@ -3,11 +3,11 @@ import './Medidas.css'
 import turmas from  '../data/turmas'
 import ModalNotyfi from './ModalNotyfi'
 
-import { database, app } from "../services/firebase";
+// import { database, app } from "../services/firebase";
 import { getDatabase, ref, set, push, child, query, orderByChild, onValue, remove, update, get } from "firebase/database";
 import { v4 as uuidv4} from 'uuid'
 
-const db = getDatabase()
+// const db = getDatabase()
 const now = new Date()
 
 const Medidas = ({handleHomeScreen}) => {
@@ -33,15 +33,15 @@ const Medidas = ({handleHomeScreen}) => {
 
   const handleSaveNotification = () => {
     const uuid = uuidv4()
-    set(ref(db, `notifications/${uuid}`), {
-        name: name,
-        class: classScool,
-        category: category,
-        status: 'pending',
-        id: uuid,
-        createdAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
-        updatedAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
-    })
+    // set(ref(db, `notifications/${uuid}`), {
+    //     name: name,
+    //     class: classScool,
+    //     category: category,
+    //     status: 'pending',
+    //     id: uuid,
+    //     createdAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
+    //     updatedAt: `${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`,
+    // })
 
     clearStates()
     handleLoad()
@@ -56,7 +56,7 @@ const Medidas = ({handleHomeScreen}) => {
   
   const handleDelete = (notify) => {
     console.log(notify)
-    remove(ref(db, `notifications/${notify.id}`))
+    // remove(ref(db, `notifications/${notify.id}`))
     handleLoad()
   }
 
@@ -70,24 +70,24 @@ const Medidas = ({handleHomeScreen}) => {
   }
 
   const handleLoad = () => {
-    get(child(ref(db), 'notifications')).then((snapshot) => {
-      const array = []
-      if (snapshot.exists()) {
-        const data = snapshot.val()
+    // get(child(ref(db), 'notifications')).then((snapshot) => {
+    //   const array = []
+    //   if (snapshot.exists()) {
+    //     const data = snapshot.val()
 
-        if( data != null) {
-              Object.values(data).map( (item) => {
-                  array.push(item)
-              })
-          }
-        } else {
-          console.log("No data available");
-        }
+    //     if( data != null) {
+    //           Object.values(data).map( (item) => {
+    //               array.push(item)
+    //           })
+    //       }
+    //     } else {
+    //       console.log("No data available");
+    //     }
 
-        setNotifications(array)
-      }).catch((error) => {
-        console.error(error);
-    });
+    //     setNotifications(array)
+    //   }).catch((error) => {
+    //     console.error(error);
+    // });
   }
 
   useEffect(() => {
