@@ -6,6 +6,7 @@ import { v4 as uuidv4} from 'uuid'
 import { collection, addDoc, getDocs, doc, setDoc, deleteDoc, query, where  } from "firebase/firestore";
 import { db, app } from '../services/firebase';
 import Loading from './Loading';
+import { AuthContext } from   '../context/authContext'
 
 const date = new Date()
 const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
@@ -20,6 +21,8 @@ const Contagem = ({handleHomeScreen}) => {
 
   const [contagem, setContagem] = useState([])
 
+  const {user} = useContext(AuthContext)
+
   const hadleSafoButton = async () => {
     const result = contagem.find((item, index) => item.turma == turmaSelected)
 
@@ -28,14 +31,16 @@ const Contagem = ({handleHomeScreen}) => {
         turma: turmaSelected,
         quantidade: quantidade,
         createdAt: result.createdAt,
-        updatedAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+        updatedAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+        photoURL: user.photoURL
       });
     } else{
       const docRef = await addDoc(collection(db, 'contagem'),{
         turma: turmaSelected,
         quantidade: quantidade,
         createdAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
-        updatedAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+        updatedAt: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
+        photoURL: user.photoURL
       })
     }
 
@@ -141,7 +146,7 @@ const Contagem = ({handleHomeScreen}) => {
                   <span>qnt: <strong>{item.quantidade}</strong></span>
                 </div>
 
-                <span>autor: G</span>
+                <img className='user_image' src={item.photoURL} alt="usuario" />
               </div>
               <button  className='btn_card' onClick={() => handleDelete(item)}>X</button>
             </div>

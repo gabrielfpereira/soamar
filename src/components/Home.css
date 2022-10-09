@@ -14,3 +14,18 @@
     align-items: center;
     justify-content: center;
 }
+
+.user .display{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user p{
+    margin: 3px 0;
+}
+
+.user img{
+    border-radius: 100%;
+    width: 50px;
+}

@@ -1,9 +1,9 @@
 import { createContext, useReducer } from "react";
 import turmas from  '../data/turmas'
 
-const TELAS = ['HOME', 'CONTAGEM', 'MEDIDAS']
+const TELAS = ['HOME', 'CONTAGEM', 'MEDIDAS', 'LOGIN']
 const initialState = {
-    tela: TELAS[0],
+    tela: TELAS[3],
     turmas,
     turmasContadas: []
 }
@@ -27,6 +27,12 @@ const soamarReducer = (state, action) => {
             return {
                 ...state,
                 tela: TELAS[0]
+            }
+
+        case 'LOGIN':
+            return {
+                ...state,
+                tela: TELAS[3]
             }
 
         case 'INSERT':
@@ -66,7 +72,7 @@ const soamarReducer = (state, action) => {
 
 }
 
-export const SoamarContext = createContext()
+export const SoamarContext = createContext({})
 
 export const SoamarProvider = ({children}) => {
     const data = useReducer(soamarReducer, initialState)

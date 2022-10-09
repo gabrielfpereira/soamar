@@ -142,3 +142,9 @@
 .footer p{
     margin-bottom: 3px;
 }
+
+.user_image{
+    border-radius: 100%;
+    width: 30px;
+    margin-top: 3px;
+}
