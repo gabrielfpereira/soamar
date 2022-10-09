@@ -79,7 +79,7 @@ const Contagem = ({handleHomeScreen}) => {
       }
     });
 
-    setContagem(array)
+    setContagem(array.sort((a, b) => a.turma - b.turma))
     setLoad(false)
   }
 
