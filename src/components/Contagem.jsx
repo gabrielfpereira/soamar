@@ -10,7 +10,7 @@ import Loading from './Loading';
 const date = new Date()
 const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
 
-const Contagem = () => {
+const Contagem = ({handleHomeScreen}) => {
   const [load, setLoad] = useState(true)
   const [soamarState, dispatch] = useContext(SoamarContext)
   const [ quantidade, setQuantidade] = useState(0)
@@ -57,7 +57,6 @@ const Contagem = () => {
   }
 
   const handleLoad = async (day) => {
-    console.log(filterDay)
     setLoad(true)
     const q = query(collection(db, "contagem"), where("createdAt", "==", day ? day : dateString));
 
@@ -92,6 +91,10 @@ const Contagem = () => {
     setListDays(array)
   }
 
+  const handleBackButton = () => {
+    handleHomeScreen()
+  }
+
   useEffect(() => {
     handleLoad()
     handleTotal()
@@ -100,6 +103,7 @@ const Contagem = () => {
 
   return (
     <div className='contagem'>
+      <h2>Contagem das Turmas</h2>
       <div className="form">
         <div className="box">
           <input type="number" value={quantidade ? quantidade : ""} placeholder="Ex. 25" onChange={(item) => setQuantidade(item.target.value)} maxLength="2" />
@@ -114,6 +118,7 @@ const Contagem = () => {
       </div>
 
       <div className="container">
+        <button className='btn-back' onClick={handleBackButton} >{'<'}</button>
         
         <div className="list_days">
           { listDays && listDays.map( (day, i) => (
@@ -121,7 +126,9 @@ const Contagem = () => {
           ))}
         </div>
             
-        { contagem.map( (item,index) => (
+        
+
+      { load ? <Loading/> : contagem.length ? contagem.map( (item,index) => (
           <div className="card-turma" key={index}>
             <div className="left">
               <div className="card-header">
@@ -136,16 +143,12 @@ const Contagem = () => {
 
                 <span>autor: G</span>
               </div>
-            </div>
-
-            <div className="rigth">
-              <button onClick={() => handleDelete(item)}>X</button>
+              <button  className='btn_card' onClick={() => handleDelete(item)}>X</button>
             </div>
           </div>
-        ))}
-      </div>
-
-      { load && <Loading/>}
+        )) : <p>Oops! Não encontramos nada.</p> }
+        
+      </div> 
 
       <div className="footer">
         <p>Total: { handleTotal()}</p>

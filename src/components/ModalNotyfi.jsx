@@ -27,10 +27,10 @@ const ModalNotyfi = ({toggleModal, notyfi, handleLoad}) => {
             updatedAt: `${dateString}`
         }
 
-        await setDoc(doc(db, "notifications", uid), student);
-
         toggleModal()
         handleLoad()
+        await setDoc(doc(db, "notifications", uid), student);
+
     }
 
   return (

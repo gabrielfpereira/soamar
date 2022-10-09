@@ -18,6 +18,7 @@ const Medidas = ({handleHomeScreen}) => {
   const [category, setCategory] = useState('')
   const [modalHidden, setModalHidden] = useState(false)
   const [notyfiForUpdate, setNotyfiForUpdate] = useState({})
+  const [load, setLoad] = useState(false)
 
   const handleBackButton = () => {
     handleHomeScreen()
@@ -80,7 +81,7 @@ const Medidas = ({handleHomeScreen}) => {
   }
 
   const handleLoad = async () => {
-   
+    setLoad(true)
     const querySnapshot = await getDocs(collection(db, 'notifications'));
     const array = []
     querySnapshot.forEach((doc) => {
@@ -91,11 +92,12 @@ const Medidas = ({handleHomeScreen}) => {
         })
         
       } catch (error) {
-        console.log(error)
+        // console.log(error)
       }
     });
 
     setNotifications(array)
+    setLoad(false)
   }
 
   useEffect(() => {
@@ -136,7 +138,8 @@ const Medidas = ({handleHomeScreen}) => {
 
       <div className="container">
         
-      { notifications && notifications.map( (notify, index) => (
+      { load ? <Loading /> : 
+        notifications.length ? notifications.map( (notify, index) => (
             <div className="card" key={index}>
                 <div className="left">
                 <h3>{notify.name}</h3>
@@ -152,7 +155,8 @@ const Medidas = ({handleHomeScreen}) => {
                 <button onClick={() => handleUpdate(notify)}>editar</button>
                 </div>
             </div>
-        ))}
+        )) : <p>oops! Não encontramos nada.</p>
+      }
 
         {modalHidden && <ModalNotyfi toggleModal={toggleModal} notyfi={notyfiForUpdate} handleLoad={handleLoad} />}
       </div>

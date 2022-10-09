@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       { soamarState.tela === 'HOME' && <Home /> }
-      { soamarState.tela === 'CONTAGEM' && <Contagem /> }
+      { soamarState.tela === 'CONTAGEM' && <Contagem handleHomeScreen={handleHomeScreen} /> }
       { soamarState.tela === 'MEDIDAS' && <Medidas handleHomeScreen={handleHomeScreen} /> }
     </div>
   )
